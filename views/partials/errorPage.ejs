@@ -1,0 +1,14 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">报错！</h4>
+                <p>
+                    错误原因：<%=err.message %>
+                </p>
+                <hr>
+                <p>错误详情：<%=err.stack %>
+                </p>
+            </div>
+        </div>
+    </div>

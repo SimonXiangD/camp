@@ -7,6 +7,10 @@ const bindModel = require('./models/mysteryLandTitle.js')
 const mLandMethod = require('./utility.js')
 const methodOverride = require('method-override')
 const ejsMate = require('ejs-mate')
+const expressError = require('./expressError.js')
+const catchAsync = require('./catchAsync.js')
+
+const { mLandSchema } = require('./schemaValidation.js')
 
 
 
@@ -27,6 +31,17 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
+
+const validateMLand = (req, res, next) => {
+    const { error } = mLandSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new expressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
 
 // app.get('/', (req, res) => {
 //     // res.send("妈妈的");
@@ -72,14 +87,14 @@ app.get('/home', async (req, res) => {
 })
 
 // 到某个秘境的专属页面
-app.get('/mysteryLand/:id', async (req, res) => {
+app.get('/mysteryLand/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     console.log(id);
     const ml = await mLandModel.findById(id);
     console.log(ml)
     res.render('details.ejs', { ml });
 
-})
+}))
 
 // 添加秘境
 app.get('/addMLand', async (req, res) => {
@@ -101,7 +116,10 @@ app.get('/addMLand', async (req, res) => {
 //     res.redirect('/mysteryLand/' + tmp._id);
 // })
 
+// app.post('/mysteryLand', validateMLand, async (req, res) => {
 app.post('/mysteryLand', async (req, res) => {
+
+    // 这里可以加一个joi（object model）来验证post时各种属性必须要满足的条件，不满足就报错，但是我懒得搞了
     let tmp;
     if (Object.values(req.body).length == 0) tmp = (await mLandMethod.createRandomML());
     else tmp = new mLandModel(req.body.ml);
@@ -118,17 +136,16 @@ app.get('/justTrial', async (req, res) => {
 
 
 
-app.get('/mysteryLand/:id/edit', async (req, res) => {
+app.get('/mysteryLand/:id/edit', catchAsync(async (req, res) => {
     const { id } = req.params;
     const ml = await mLandModel.findById(id);
     res.render('edit.ejs', { ml });
-})
+}))
 
-app.listen(3000, () => {
-    console.log("This is on port 3000 by dirnot!");
-})
+// 这里可以使用validateMLand， 但我觉得没有必要
+app.put('/mysteryLand/:id', catchAsync(async (req, res) => {
 
-app.put('/mysteryLand/:id', async (req, res) => {
+    // app.put('/mysteryLand/:id', validateMLand, catchAsync(async (req, res) => {
     // res.send('it worked!');
 
     const { id } = req.params;
@@ -138,7 +155,7 @@ app.put('/mysteryLand/:id', async (req, res) => {
 
 
 
-})
+}))
 
 app.get('/index', async (req, res) => {
     const mls = await mLandModel.find({});
@@ -146,7 +163,7 @@ app.get('/index', async (req, res) => {
     res.render('index.ejs', { mls });
 })
 
-app.delete('/mysteryLand/:id', async (req, res) => {
+app.delete('/mysteryLand/:id', catchAsync(async (req, res) => {
     // res.send('it worked!');
 
     const { id } = req.params;
@@ -154,6 +171,32 @@ app.delete('/mysteryLand/:id', async (req, res) => {
     // console.log(req.body.ml)
     res.redirect('/home')
 
+}))
+
+app.get('/nihao/:id', catchAsync(async (req, res) => {
+    const { id } = req.params;
+    if (id == '0') res.send("你好");
+    else throw new expressError("lll", 114514)
+}))
+
+app.all("*", (req, res, next) => {
+    next(new expressError('没有找到页面', 404))
 })
+
+app.use((err, req, res, next) => {
+    let { status = 500, message = 'default error .*.' } = err;
+    console.log(err.message)
+    res.status(status);
+    message = "afdlgfhag"
+    res.render('partials/errorPage', { err })
+    // res.send(message)
+    // res.send("妈妈生的");
+    // console.log(err)
+})
+
+app.listen(3000, () => {
+    console.log("This is on port 3000 by dirnot!");
+})
+
 
 // console.log("你好")

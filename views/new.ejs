@@ -11,19 +11,21 @@
             <br>
 
             <h2>运用【大五行手】创建天地秘境</h2>
-            <form action="/mysteryLand" method="POST">
+            <form action="/mysteryLand" method="POST" class="needs-validation" novalidate>
                 <label for="name" class="form-label">秘境名称</label>
-                <input type="text" id="name" name="ml[title]" class="form-control" placeholder="无名秘境">
+                <input type="text" id="name" name="ml[title]" class="form-control" placeholder="无名秘境" required>
 
                 <label for="price" class="form-label">所需等级</label>
-                <input type="number" id="price" name="ml[price]" class="form-control" placeholder="0" min="0" step="1">
+                <input type="number" id="price" name="ml[price]" class="form-control" placeholder="0" min="0" step="1"
+                    required>
 
                 <label for="description" class="form-label">预探信息</label>
                 <input type="text" id="description" name="ml[description]" class="form-control"
                     placeholder="此境恐怖如斯，不可久留！">
 
                 <label for="location" class="form-label">地点</label>
-                <input type="text" id="location" name="ml[location]" class="form-control" placeholder="黄泉之下？九天之上？">
+                <input type="text" id="location" name="ml[location]" class="form-control" placeholder="黄泉之下？九天之上？"
+                    required>
 
                 <label for="image" class="form-label">图片网址</label>
                 <textarea type="text" id="image" name="ml[image]" class="form-control" placeholder="请运用留影术"></textarea>
@@ -34,3 +36,25 @@
             <a href="/home" class="btn btn-primary mb-3">回到秘境榜</a>
         </div>
     </div>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>

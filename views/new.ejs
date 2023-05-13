@@ -1,30 +1,36 @@
 <% layout('layouts/boilerplate') %>
 
-    <h2>运用【玄天观气法】获取新的秘境地点</h2>
-    <form action="/sendNewMLand" method="POST">
-        <button>注入法力</button>
-    </form>
+    <div class="row ">
+        <h1 class="text-center">新秘境</h1>
+        <div class="col-6 offset-3 ">
+            <h2>运用【玄天观气法】获取新的秘境地点</h2>
+            <form action="/mysteryLand" method="POST">
+                <button class="btn btn-primary my-3">注入法力</button>
+            </form>
 
-    <br>
+            <br>
 
-    <h2>运用【大五行手】创建天地秘境</h2>
-    <form action="/sendNewMLand" method="POST">
-        <label for="name">秘境名称</label>
-        <input type="text" id="name" name="name" placeholder="无名秘境">
+            <h2>运用【大五行手】创建天地秘境</h2>
+            <form action="/mysteryLand" method="POST">
+                <label for="name" class="form-label">秘境名称</label>
+                <input type="text" id="name" name="ml[title]" class="form-control" placeholder="无名秘境">
 
-        <label for="price">所需等级</label>
-        <input type="number" id="price" name="price" placeholder="0" min="0" step="1">
+                <label for="price" class="form-label">所需等级</label>
+                <input type="number" id="price" name="ml[price]" class="form-control" placeholder="0" min="0" step="1">
 
-        <label for="description">预探信息</label>
-        <input type="text" id="description" name="description" placeholder="此境恐怖如斯，不可久留！">
+                <label for="description" class="form-label">预探信息</label>
+                <input type="text" id="description" name="ml[description]" class="form-control"
+                    placeholder="此境恐怖如斯，不可久留！">
 
-        <label for="location">地点</label>
-        <input type="text" id="location" name="location" placeholder="黄泉之下？九天之上？">
+                <label for="location" class="form-label">地点</label>
+                <input type="text" id="location" name="ml[location]" class="form-control" placeholder="黄泉之下？九天之上？">
+
+                <label for="image" class="form-label">图片网址</label>
+                <textarea type="text" id="image" name="ml[image]" class="form-control" placeholder="请运用留影术"></textarea>
+                <button class="btn btn-success my-3">记录于芒高秘卷</button>
+            </form>
 
 
-
-        <button>记录于芒高秘卷</button>
-    </form>
-
-
-    <a href="/home">回到秘境榜</a>
+            <a href="/home" class="btn btn-primary mb-3">回到秘境榜</a>
+        </div>
+    </div>

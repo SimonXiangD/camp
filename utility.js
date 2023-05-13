@@ -18,6 +18,7 @@ function createMysteryLand(arr) {
         price: arr[1],
         description: arr[2],
         location: arr[3],
+        image: arr[4],
     })
 }
 
@@ -65,13 +66,26 @@ async function createRandomML() {
     // let tmp = await getRandomItem(bundleModel.titleModel);
     // console.log(tmp)
     // console.log(tmp.name)
+
+    let imageUrl;
+    try {
+        imageUrl = (await getRandomItem(bundleModel.imageModel)).name;
+    }
+    catch (e) {
+        // console.log(e)
+    }
+
     const ans = new mLand({
         title: (await getRandomItem(bundleModel.titleModel)).name,
         price: Math.floor(Math.random() * max),
         description: (await getRandomItem(bundleModel.descripModel)).name,
         location: (await getRandomItem(bundleModel.locationModel)).name,
-        // image: (await getRandomItem(bundleModel.imageModel)).name,
-        image: "https://source.unsplash.com/random/?mountain,sea,sky",
+        image: imageUrl,
+        // try { (await getRandomItem(bundleModel.imageModel)).name;}
+        // catch(e) {
+
+        // }
+        // image: "https://source.unsplash.com/random/?mountain,sea,sky",
     });
     // console.log(ans);
     return ans;

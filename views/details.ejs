@@ -1,5 +1,47 @@
 <% layout('layouts/boilerplate') %>
-    <h2>秘境：<%=ml.title%>
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card mb-5">
+                <img src="<%=(ml.image == undefined || ml.image == "" || ml.image == 'undefined') ?
+            'https://source.unsplash.com/random/?mountain,sea,sky' : ml.image%>" alt="未储存图片..." class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">秘境<%=ml.title%>
+                    </h5>
+                    <p class="card-text">
+                        <%=ml.description %>
+                    </p>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">等级</h5>
+                    <p class="card-text">
+                        <%=ml.price %>
+                    </p>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">地点</h5>
+                    <p class="card-text">
+                        <%=ml.location %>
+                    </p>
+                </div>
+                <div class="card-body">
+                    <!-- <a class="btn btn-primary card-link" href="/home">回到秘境榜</a> -->
+                    <a class="card-link btn btn-warning " href="/mysteryLand/<%=ml._id%>/edit">更改秘境</a>
+                    <form class="d-inline" action="/mysteryLand/<%=ml._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger card-link">以莫大法力强行击垮此境</button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-primary card-link" href="/home">回到秘境榜</a>
+                </div>
+                <div class="card-footer">
+                    2天前
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <h2>秘境：<%=ml.title%>
     </h2>
     <p>
     <ul>
@@ -11,16 +53,17 @@
     </ul>
     </p>
     <div>
-        <img src="<%=ml.image === undefined ? 'https://source.unsplash.com/random/?mountain,sea,sky' : ml.image%>"
-            alt="未储存图片...">
+
+        <img src="<%=(ml.image == undefined || ml.image == "" || ml.image == 'undefined') ?
+         'https://source.unsplash.com/random/?mountain,sea,sky' : ml.image%>" alt="未储存图片..." class="img-fluid">
     </div>
     <p>
-        <a href="/home">回到秘境榜</a>
+        <a class="btn btn-primary mt-3" href="/home">回到秘境榜</a>
     </p>
     <p>
-        <a href="/mysteryLand/<%=ml._id%>/edit">更改秘境</a>
+        <a class="btn btn-primary " href="/mysteryLand/<%=ml._id%>/edit">更改秘境</a>
     </p>
     <p>
     <form action="/mysteryLand/<%=ml._id%>?_method=DELETE" method="POST">
-        <button>以莫大法力强行击垮此境</button>
-    </form>
+        <button class="btn btn-danger mb-3">以莫大法力强行击垮此境</button>
+    </form> -->

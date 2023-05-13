@@ -74,10 +74,11 @@ app.get('/home', async (req, res) => {
 // 到某个秘境的专属页面
 app.get('/mysteryLand/:id', async (req, res) => {
     const { id } = req.params;
+    console.log(id);
     const ml = await mLandModel.findById(id);
+    console.log(ml)
     res.render('details.ejs', { ml });
-    // console.log(ml)
-    // console.log(ml.image)
+
 })
 
 // 添加秘境
@@ -85,26 +86,37 @@ app.get('/addMLand', async (req, res) => {
     res.render('new.ejs');
 })
 
-app.post('/sendNewMLand', async (req, res) => {
-    // console.log(req.body)
-    // console.log()
-    const dic = req.body
-    // arr = [];
-    // arr.push(dict.title === null ?  : dict.title)
+// app.post('/sendNewMLand', async (req, res) => {
+//     // console.log(req.body)
+//     // console.log()
+//     const dic = req.body
+//     // arr = [];
+//     // arr.push(dict.title === null ?  : dict.title)
+//     let tmp;
+//     if (Object.values(dic).length == 0) tmp = (await mLandMethod.createRandomML());
+//     // console.log(Object.values(dic)[0])
+//     else tmp = mLandMethod.createMysteryLand(Object.values(dic));
+//     // console.log(tmp);
+//     tmp.save();
+//     res.redirect('/mysteryLand/' + tmp._id);
+// })
+
+app.post('/mysteryLand', async (req, res) => {
     let tmp;
-    if (Object.values(dic).length == 0) tmp = (await mLandMethod.createRandomML());
-    else tmp = mLandMethod.createMysteryLand(Object.values(dic));
-    // console.log(tmp);
-    tmp.save();
-    res.redirect('/mysteryLand/' + tmp._id);
+    if (Object.values(req.body).length == 0) tmp = (await mLandMethod.createRandomML());
+    else tmp = new mLandModel(req.body.ml);
+    await (tmp.save());
+    res.redirect(`/mysteryLand/${tmp._id}`)
 })
 
-// app.get('/justTrial', async (req, res) => {
-//     // await mLandModel.deleteMany({});
-//     for (let i = 0; i < 10; i++) {
-//         (await mLandMethod.createRandomML()).save();
-//     }
-// })
+app.get('/justTrial', async (req, res) => {
+    // await mLandModel.deleteMany({});
+    // for (let i = 0; i < 10; i++) {
+    //     (await mLandMethod.createRandomML()).save();
+    // }
+})
+
+
 
 app.get('/mysteryLand/:id/edit', async (req, res) => {
     const { id } = req.params;
@@ -143,3 +155,5 @@ app.delete('/mysteryLand/:id', async (req, res) => {
     res.redirect('/home')
 
 })
+
+// console.log("你好")

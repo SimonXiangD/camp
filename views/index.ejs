@@ -1,0 +1,15 @@
+<% layout('layouts/boilerplate') %>
+    <h1>主页</h1>
+
+    <h2> <a href="/addMLand">发现新秘境</a></h2>
+    <h2> <a href="/addName">添加秘境随机生成字符</a></h2>
+
+    <ul>
+        <% for(let ml of mls) { %>
+
+            <li> <a href="/mysteryLand/<%=ml._id%>">
+                    <%=ml.title%>秘境
+                </a> </li>
+
+            <% } %>
+    </ul>

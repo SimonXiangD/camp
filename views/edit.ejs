@@ -1,0 +1,23 @@
+<% layout('layouts/boilerplate') %>
+
+    <h2>修正天地秘境信息</h2>
+    <form action="/mysteryLand/<%=ml._id%>?_method=PUT" method="POST">
+        <label for="name">秘境名称</label>
+        <input type="text" id="name" name="ml[title]" value="<%=ml.title%>">
+
+        <label for="price">所需等级</label>
+        <input type="number" id="price" name="ml[price]" value="<%=ml.price%>" min="0" step="1">
+
+        <label for="description">预探信息</label>
+        <input type="text" id="description" name="ml[description]" value="<%=ml.description%>">
+
+        <label for="location">地点</label>
+        <input type="text" id="location" name="ml[location]" value="<%=ml.location%>">
+
+
+
+        <button>更改！</button>
+    </form>
+
+    <a href="/mysteryLand/" + <%=ml._id%>></a>
+    <a href="/home">回到秘境榜</a>

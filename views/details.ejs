@@ -1,0 +1,26 @@
+<% layout('layouts/boilerplate') %>
+    <h2>秘境：<%=ml.title%>
+    </h2>
+    <p>
+    <ul>
+        <li>秘境进入所需： <%=ml.price %>
+        </li>
+        <li>秘境描述： <%=ml.description %>
+        </li>
+        <li>秘境所在地点： <%=ml.location %>大陆</li>
+    </ul>
+    </p>
+    <div>
+        <img src="<%=ml.image === undefined ? 'https://source.unsplash.com/random/?mountain,sea,sky' : ml.image%>"
+            alt="未储存图片...">
+    </div>
+    <p>
+        <a href="/home">回到秘境榜</a>
+    </p>
+    <p>
+        <a href="/mysteryLand/<%=ml._id%>/edit">更改秘境</a>
+    </p>
+    <p>
+    <form action="/mysteryLand/<%=ml._id%>?_method=DELETE" method="POST">
+        <button>以莫大法力强行击垮此境</button>
+    </form>

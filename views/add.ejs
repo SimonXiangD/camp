@@ -1,0 +1,28 @@
+<% layout('layouts/boilerplate') %>
+    <h2>添加地名！</h2>
+    <div>
+        <form action="/sendInfoLoc" method="POST">
+            <label for="locationName">地名填写</label>
+            <input type="text" id="locationName" name="name" placeholder="不要空着哦">
+            <button>提交！</button>
+        </form>
+    </div>
+
+    <h2>添加秘境title！</h2>
+    <div>
+        <form action="/sendInfoTitle" method="POST">
+            <label for="title">title填写</label>
+            <input type="text" id="title" name="name" placeholder="不要空着哦">
+            <button>提交！</button>
+        </form>
+    </div>
+
+    <h2>添加描述！</h2>
+    <div>
+        <form action="/sendInfoDescript" method="POST">
+            <label for="description">description填写</label>
+            <input type="text" id="description" name="name" placeholder="不要空着哦">
+            <button>提交！</button>
+        </form>
+    </div>
+    <a href="/home">回到秘境榜</a>
